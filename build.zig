@@ -17,7 +17,6 @@ pub fn build(b: *std.Build) !void {
 
     const lib = b.addStaticLibrary(.{
         .name = "facil.io",
-        // .root_source_file = .{ .path = "src/main.zig" },
         .target = target,
         .optimize = optimize,
     });
@@ -112,4 +111,8 @@ pub fn build(b: *std.Build) !void {
     // location when the user invokes the "install" step (the default step when
     // running `zig build`).
     b.installArtifact(lib);
+    b.getInstallStep().dependOn(&lib.step);
+    // for (b.install_tls.step.dependencies.items) |it| {
+    //     std.log.warn("b: '{s}'", .{it.name});
+    // }
 }
